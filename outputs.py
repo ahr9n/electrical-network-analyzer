@@ -1,3 +1,5 @@
+import numpy as np
+
 class Instructions(object):
     @staticmethod
     def displayForMatrixA():
@@ -13,21 +15,20 @@ class Instructions(object):
 
     @staticmethod
     def displayForMatrixB():
-        print("Input WiKi for matrix B:\n"
+        print("\nInput WiKi for matrix B:\n"
               "     The next three lines represent the voltage sources, the current sources and the resistances on the branches:\n"
               "     Each line contains four values; b d a c (all respectively).\n")
 
 class Formats(object):
     @staticmethod
     def formatMatrix(matrix, matrixType):
-        print("     Matrix:", matrixType)
-        print(matrix)
+        print("Matrix:", matrixType, '\n', np.array(matrix), '\n')
 
     @staticmethod
     def formatResult(matrixJBranch, matrixVBranch, branchesOrder):
         print("The result:\n",
               "                           Voltage (V)         Current (A)\n",
-              "     ---------------     ---------------     ---------------")
+              "     ---------         --------------------     --------------------")
         for i in range(len(branchesOrder)):
-            print("     Branch", branchesOrder[i], ":     ", matrixVBranch[i][0], "     ", matrixJBranch[i][0])
-        print("     ---------------     ---------------     ---------------")
+            print("      Branch ", branchesOrder[i]+1, ":          ", matrixVBranch[i], "       ", matrixJBranch[0][i], sep='')
+        print("      ---------         --------------------     --------------------")
