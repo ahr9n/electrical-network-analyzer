@@ -88,5 +88,6 @@ def getMatrixJBranch(matrixB, matrixILoop):
     return matrixJBranch
 
 def getMatrixVBranch(matrixJBranch, matrixImpedance, matrixCurrentSource, matrixVoltageSource):
-    matrixVBranch = np.subtract(np.dot(matrixImpedance, np.add(matrixJBranch, matrixCurrentSource)), matrixVoltageSource)
+    helper = np.subtract(np.dot(matrixImpedance, np.add(matrixJBranch, matrixCurrentSource)), matrixVoltageSource)
+    matrixVBranch = [helper[i][i] for i in range(len(helper))]
     return matrixVBranch
