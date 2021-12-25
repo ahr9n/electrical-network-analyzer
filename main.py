@@ -6,13 +6,15 @@ from equations import *
 def main():
     Instructions.displayForMatrixA()
 
-    nodes, branches = 0, 0
+    nodes, branches = map(int, input().split())
     branchName, invBranchName = {}, {}
 
-    graph = Graph.readGraph(branchName, invBranchName, nodes, branches)
-    treeBranches = Graph.findTree(graph, branchName, nodes, branches)
+    graph = Graph(nodes, branches)
+    graph.readGraph(branchName, invBranchName)
+    treeBranches = graph.findTree(branchName, nodes)
 
     Instructions.displayForMatrixB()
+    values = readCircuitComponents(branches)
 
     matrixATree = getMatrixATree(treeBranches, invBranchName, nodes, branches)
     matrixALink = getMatrixALink(treeBranches, invBranchName, nodes, branches)
@@ -21,11 +23,11 @@ def main():
     B = getMatrixB(matrixATree, matrixALink)
     C = getMatrixC(matrixATree, matrixALink)
 
+    print("\nThe Process:\n")
     Formats.formatMatrix(A, "Incidence")
     Formats.formatMatrix(B, "Tie-set")
     Formats.formatMatrix(C, "Cut-set")
 
-    values = readCircuitComponents(branches)
     matrixVoltageSource = getMatrixVoltageSource(values[0])
     matrixCurrentSource	= getMatrixCurrentSource(values[1])
     matrixImpedence = getMatrixImpedance(values[2])
@@ -40,7 +42,7 @@ def main():
     Formats.formatMatrix(vBranch, "V Branch");
 
     branchesOrder = getBranchesOrder(treeBranches, invBranchName)
-    Formats.formatResult(vBranch, jBranch, branchesOrder)
+    Formats.formatResult(jBranch, vBranch, branchesOrder)
 
 if __name__ == "__main__":
     main()
