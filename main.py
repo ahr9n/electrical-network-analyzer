@@ -3,6 +3,7 @@ from outputs import *
 
 from equations import *
 
+
 def main():
     Instructions.displayForMatrixA()
 
@@ -14,7 +15,8 @@ def main():
     treeBranches = graph.findTree(branchName, nodes)
 
     Instructions.displayForMatrixB()
-    values = readCircuitComponents(branches)
+
+    values = readCircuitComponents()
 
     matrixATree = getMatrixATree(treeBranches, invBranchName, nodes, branches)
     matrixALink = getMatrixALink(treeBranches, invBranchName, nodes, branches)
@@ -24,16 +26,16 @@ def main():
     C = getMatrixC(matrixATree, matrixALink)
 
     print("\nThe Process:\n")
+
     Formats.formatMatrix(A, "Incidence")
     Formats.formatMatrix(B, "Tie-set")
     Formats.formatMatrix(C, "Cut-set")
 
     matrixVoltageSource = getMatrixVoltageSource(values[0])
-    matrixCurrentSource	= getMatrixCurrentSource(values[1])
+    matrixCurrentSource = getMatrixCurrentSource(values[1])
     matrixImpedence = getMatrixImpedance(values[2])
 
     iLoop = getMatrixILoop(B, matrixImpedence, matrixCurrentSource, matrixVoltageSource)
-
     jBranch = getMatrixJBranch(iLoop, B)
     vBranch = getMatrixVBranch(jBranch, matrixImpedence, matrixCurrentSource, matrixVoltageSource);
 
@@ -43,6 +45,7 @@ def main():
 
     branchesOrder = getBranchesOrder(treeBranches, invBranchName)
     Formats.formatResult(jBranch, vBranch, branchesOrder)
+
 
 if __name__ == "__main__":
     main()

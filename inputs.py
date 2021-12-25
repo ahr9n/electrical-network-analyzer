@@ -17,7 +17,7 @@ class Graph(object):
             branchName[(fromNode - 1, toNode - 1)] = self.branchName[(fromNode - 1, toNode - 1)] = branch
             invBranchName[branch] = self.invBranchName[branch] = (fromNode - 1, toNode - 1)
 
-    def dfs(self, node, visited, treeBranches, branchName, sameComponent, linked = True):
+    def dfs(self, node, visited, treeBranches, branchName, sameComponent, linked=True):
         if visited[node] == 1:
             return
         visited[node] = 1
@@ -27,7 +27,7 @@ class Graph(object):
                 if visited[child] != 1:
                     treeBranches.append(branchName[(node, child)])
                 self.dfs(child, visited, treeBranches, branchName, sameComponent, linked)
-            elif(linked and sameComponent[node] == False):
+            elif (linked and sameComponent[node] == False):
                 treeBranches.append(branchName[(node, child)])
                 linked = False
         visited[node] = 2
@@ -40,9 +40,9 @@ class Graph(object):
                 self.dfs(node, visited, treeBranches, branchName, [0] * nodes)
         return treeBranches
 
-def readCircuitComponents(branches):
+
+def readCircuitComponents():
     ret = []
     for i in range(3):
         ret.append(list(map(float, input().split())))
-    print(ret)
     return ret

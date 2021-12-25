@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class Instructions(object):
     @staticmethod
     def displayForMatrixA():
@@ -19,16 +20,25 @@ class Instructions(object):
               "     The next three lines represent the voltage sources, the current sources and the resistances on the branches:\n"
               "     Each line contains four values; b d a c (all respectively).\n")
 
+
 class Formats(object):
     @staticmethod
     def formatMatrix(matrix, matrixType):
-        print("Matrix:", matrixType, '\n', np.array(matrix), '\n')
+        x = np.random.random(10)
+        with np.printoptions(precision=5, suppress=True):
+            print("Matrix:", matrixType, '\n', np.array(matrix), '\n')
 
     @staticmethod
     def formatResult(matrixJBranch, matrixVBranch, branchesOrder):
         print("The result:\n",
-              "                           Voltage (V)         Current (A)\n",
-              "     ---------         --------------------     --------------------")
+              "                    Voltage (V)     Current (A)\n",
+              "     ---------      -----------     -----------")
         for i in range(len(branchesOrder)):
-            print("      Branch ", branchesOrder[i]+1, ":          ", matrixVBranch[i], "       ", matrixJBranch[0][i], sep='')
-        print("      ---------         --------------------     --------------------")
+            print("      Branch ", branchesOrder[i] + 1, ":      ", end='', sep='')
+            if matrixVBranch[0][i] > 0:
+                print(" ", end='')
+            print(round(matrixVBranch[0][i], 7), "      ", end='', sep='')
+            if matrixJBranch[0][i] > 0:
+                print(" ", end='')
+            print(round(matrixJBranch[0][i], 7))
+        print("      ---------      -----------     -----------")
