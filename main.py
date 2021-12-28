@@ -5,46 +5,47 @@ from equations import *
 
 
 def main():
-    Instructions.displayForMatrixA()
+    Instructions.display_for_matrix_a()
 
     nodes, branches = map(int, input().split())
-    branchName, invBranchName = {}, {}
+    branch_name, reversed_branch_name = {}, {}
 
     graph = Graph(nodes, branches)
-    graph.readGraph(branchName, invBranchName)
-    treeBranches = graph.findTree(branchName, nodes)
+    graph.read_graph(branch_name, reversed_branch_name)
+    tree_branches = graph.find_tree(branch_name, nodes)
 
-    Instructions.displayForMatrixB()
+    Instructions.display_for_matrix_b(tree_branches, reversed_branch_name)
 
-    values = readCircuitComponents()
+    values = read_circuit_components()
 
-    matrixATree = getMatrixATree(treeBranches, invBranchName, nodes, branches)
-    matrixALink = getMatrixALink(treeBranches, invBranchName, nodes, branches)
+    matrix_a_tree = get_matrix_a_tree(tree_branches, reversed_branch_name, nodes, branches)
+    matrix_a_link = get_matrix_a_link(tree_branches, reversed_branch_name, nodes, branches)
 
-    A = getMatrixA(treeBranches, invBranchName, nodes, branches)
-    B = getMatrixB(matrixATree, matrixALink)
-    C = getMatrixC(matrixATree, matrixALink)
+    matrix_a = get_matrix_a(tree_branches, reversed_branch_name, nodes, branches)
+    matrix_b = get_matrix_b(matrix_a_tree, matrix_a_link)
+    matrix_c = get_matrix_c(matrix_a_tree, matrix_a_link)
 
     print("\nThe Process:\n")
 
-    Formats.formatMatrix(A, "Incidence")
-    Formats.formatMatrix(B, "Tie-set")
-    Formats.formatMatrix(C, "Cut-set")
+    Formats.format_matrix(matrix_a, "Incidence")
+    Formats.format_matrix(matrix_b, "Tie-set")
+    Formats.format_matrix(matrix_c, "Cut-set")
 
-    matrixVoltageSource = getMatrixVoltageSource(values[0])
-    matrixCurrentSource = getMatrixCurrentSource(values[1])
-    matrixImpedence = getMatrixImpedance(values[2])
+    matrix_voltage_source = get_matrix_voltage_source(values[0])
+    matrix_current_source = get_matrix_current_source(values[1])
+    matrix_impedance = get_matrix_impedance(values[2])
 
-    iLoop = getMatrixILoop(B, matrixImpedence, matrixCurrentSource, matrixVoltageSource)
-    jBranch = getMatrixJBranch(iLoop, B)
-    vBranch = getMatrixVBranch(jBranch, matrixImpedence, matrixCurrentSource, matrixVoltageSource);
+    matrix_i_loop = get_matrix_i_loop(matrix_b, matrix_impedance, matrix_current_source, matrix_voltage_source)
+    matrix_j_branch = get_matrix_j_branch(matrix_i_loop, matrix_b)
+    matrix_v_branch = get_matrix_v_branch(matrix_j_branch, matrix_impedance, matrix_current_source,
+                                          matrix_voltage_source)
 
-    Formats.formatMatrix(iLoop, "I Loop");
-    Formats.formatMatrix(jBranch, "J Branch");
-    Formats.formatMatrix(vBranch, "V Branch");
+    Formats.format_matrix(matrix_i_loop, "I Loop")
+    Formats.format_matrix(matrix_j_branch, "J Branch")
+    Formats.format_matrix(matrix_v_branch, "V Branch")
 
-    branchesOrder = getBranchesOrder(treeBranches, invBranchName)
-    Formats.formatResult(jBranch, vBranch, branchesOrder)
+    branches_order = get_branches_order(tree_branches, reversed_branch_name)
+    Formats.format_result(matrix_j_branch, matrix_v_branch, branches_order)
 
 
 if __name__ == "__main__":

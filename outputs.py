@@ -24,10 +24,10 @@ class Instructions:
         print("\nInput WiKi for matrix B:\n"
               "     The next three lines represent the voltage sources, "
               "the current sources and the resistances on the branches:\n"
-              f"     Each line contains {len(branches_order)} values; {branches_order} (all respectively).\n")
-        print("The branches are in the following order:\n",
-              "     Voltage sources: ", branches_order, '\n',
-              "     Current sources: ", branches_order, '\n',
+              f"     Each line contains {len(branches_order)} values; {branches_order} (all respectively).\n"
+              "\nThe branches are in the following order:\n"
+              "     Voltage sources: ", branches_order, '\n'
+              "     Current sources: ", branches_order, '\n'
               "     Resistors:       ", branches_order, '\n', sep='')
 
 
